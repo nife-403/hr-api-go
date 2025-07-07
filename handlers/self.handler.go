@@ -102,7 +102,7 @@ func Self_fetchAll() gin.HandlerFunc {
 		result = append(result, res)
 	}
 	return func(c *gin.Context) {
-		c.SecureJSON(http.StatusOK, result)
+		c.JSON(http.StatusOK, result)
 	}
 }
 

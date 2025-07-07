@@ -10,15 +10,13 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var JWTKey = []byte("SECRET_KEY_HERE") //128bit, could make 256 but eh idc
+var JWTKey = []byte("e6a0ef84c39aad457edd6ef927922ad9") //128bit, could make 256 but eh idc
 
 func GenerateToken() (string, error) {
 	//c := jwt.MapClaims{
 	//	"exp": time.Now().Add(time.Hour * 24 * 7 * 4).Unix(), // 1 hour expiry
 	//}
 	c := jwt.MapClaims{}
-	c["authorized"] = true
-	//c["exp"] = time.Now().Add(time.Hour * 24 * 7 * 4)
 	c["iat"] = time.Now().Unix()
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
 	new, err := t.SignedString(JWTKey)

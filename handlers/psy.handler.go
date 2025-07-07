@@ -40,7 +40,7 @@ func Psy_fetchAll() gin.HandlerFunc {
 		result = append(result, res)
 	}
 	return func(c *gin.Context) {
-		c.SecureJSON(http.StatusOK, result)
+		c.JSON(http.StatusOK, result)
 	}
 }
 
@@ -67,7 +67,7 @@ func Psy_fetchOne(c *gin.Context) {
 			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.SecureJSON(http.StatusOK, result)
+		c.JSON(http.StatusOK, result)
 		return
 	}
 }
