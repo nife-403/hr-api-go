@@ -17,7 +17,7 @@ func Psy_fetchAll() gin.HandlerFunc {
 	client, err := cfg.ConnectToDB()
 	if err != nil {
 		return func(c *gin.Context) {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
 	col := client.Database("substances").Collection("psychwiki")
@@ -25,7 +25,7 @@ func Psy_fetchAll() gin.HandlerFunc {
 	defer client.Disconnect(context.Background())
 	if err != nil {
 		return func(c *gin.Context) {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
 	defer cur.Close(context.Background())
@@ -34,13 +34,13 @@ func Psy_fetchAll() gin.HandlerFunc {
 		var res models.PsyDoc
 		if err := cur.Decode(&res); err != nil {
 			return func(c *gin.Context) {
-				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			}
 		}
 		result = append(result, res)
 	}
 	return func(c *gin.Context) {
-		c.JSON(http.StatusOK, result)
+		c.SecureJSON(http.StatusOK, result)
 	}
 }
 
@@ -58,17 +58,17 @@ func Psy_fetchOne(c *gin.Context) {
 	defer client.Disconnect(context.Background())
 	switch err {
 	case mongo.ErrNoDocuments:
-		c.JSON(http.StatusNotFound, gin.H{"Drug not found": err.Error()})
+		c.SecureJSON(http.StatusNotFound, gin.H{"Drug not found": err.Error()})
 		return
 	case mongo.ErrClientDisconnected:
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	default:
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusOK, result)
+		c.SecureJSON(http.StatusOK, result)
 		return
 	}
 }
