@@ -10,7 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var JWTKey = []byte("SECRET_KEY_HERE")
+var JWTKey = []byte("SECRET_KEY_HERE") //128bit, could make 256 but eh idc
 
 func GenerateToken() (string, error) {
 	//c := jwt.MapClaims{
