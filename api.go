@@ -4,6 +4,7 @@ import (
 	"hr-api/auth"
 	"hr-api/handlers"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,9 @@ func setRoutes() *gin.Engine {
 	r.SetTrustedProxies(nil)
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
+	cc := cors.DefaultConfig()
+	cc.AllowAllOrigins = true
+	r.Use(cors.New(cc))
 	r.PUT("/api/token/check", func(c *gin.Context) { handlers.CheckTokenHandler(c) })
 	r.GET("/api/psy/:name", func(c *gin.Context) { handlers.Psy_fetchOne(c) })
 	r.GET("/api/:name", func(c *gin.Context) { handlers.Self_fetchOne(c) })

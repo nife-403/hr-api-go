@@ -1,18 +1,15 @@
 package models
 
-import "go.mongodb.org/mongo-driver/v2/bson"
-
 type SelfModel struct {
-	ID                bson.ObjectID `bson:"_id,omitempty"`
-	Name              string        `bson:"name"`
-	ChemicalClass     string        `bson:"chemical_class"`
-	PsychoactiveClass string        `bson:"psychoactive_class"`
-	CommonNames       []string      `bson:"common_names"`
-	Summary           string        `bson:"summary"`
-	HistoryAndCulture string        `bson:"history_and_culture"`
-	Chemistry         string        `bson:"chemistry"`
-	HarmPotential     string        `bson:"harm_potential"`
-	Withdrawal        string        `bson:"withdrawal"`
+	Name              string   `bson:"name"`
+	ChemicalClass     string   `bson:"chemical_class"`
+	PsychoactiveClass string   `bson:"psychoactive_class"`
+	CommonNames       []string `bson:"common_names"`
+	Summary           string   `bson:"summary"`
+	HistoryAndCulture string   `bson:"history_and_culture"`
+	Chemistry         string   `bson:"chemistry"`
+	HarmPotential     string   `bson:"harm_potential"`
+	Withdrawal        string   `bson:"withdrawal"`
 	Tolerance         struct {
 		FullTolerance  string `bson:"full_tolerance"`
 		CrossTolerance string `bson:"cross_tolerance"`

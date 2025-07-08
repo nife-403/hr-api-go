@@ -1,17 +1,12 @@
 package models
 
-import (
-	"go.mongodb.org/mongo-driver/v2/bson"
-)
-
 type PsyDoc struct {
-	ID                 bson.ObjectID `bson:"_id,omitempty"`
-	Name               string        `bson:"name"`
-	Summary            string        `bson:"summary"`
-	AddictionPotential string        `bson:"addictionPotential"`
-	Toxicity           []string      `bson:"toxicity"`
-	CrossTolerances    []string      `bson:"crossTolerances"`
-	CommonNames        []string      `bson:"commonNames"`
+	Name               string   `bson:"name"`
+	Summary            string   `bson:"summary"`
+	AddictionPotential string   `bson:"addictionPotential"`
+	Toxicity           []string `bson:"toxicity"`
+	CrossTolerances    []string `bson:"crossTolerances"`
+	CommonNames        []string `bson:"commonNames"`
 	Class              struct {
 		Chemical     []string `bson:"chemical"`
 		Psychoactive []string `bson:"psychoactive"`

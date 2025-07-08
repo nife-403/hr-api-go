@@ -49,7 +49,7 @@ func Psy_fetchOne(c *gin.Context) {
 	drug := c.Param("name")
 	client, err := cfg.ConnectToDB()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 	col := client.Database("substances").Collection("psychwiki")
 	//opts := options.Find().SetProjection(bson.D{{"_id", 0}})

@@ -1,3 +1,4 @@
 .env
 ui-server.go
 frontend-*
+dist
