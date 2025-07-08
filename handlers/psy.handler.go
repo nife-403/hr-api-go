@@ -17,7 +17,7 @@ func Psy_fetchAll() gin.HandlerFunc {
 	client, err := cfg.ConnectToDB()
 	if err != nil {
 		return func(c *gin.Context) {
-			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
 	col := client.Database("substances").Collection("psychwiki")
@@ -25,7 +25,7 @@ func Psy_fetchAll() gin.HandlerFunc {
 	defer client.Disconnect(context.Background())
 	if err != nil {
 		return func(c *gin.Context) {
-			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
 	defer cur.Close(context.Background())
@@ -34,7 +34,7 @@ func Psy_fetchAll() gin.HandlerFunc {
 		var res models.PsyDoc
 		if err := cur.Decode(&res); err != nil {
 			return func(c *gin.Context) {
-				c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			}
 		}
 		result = append(result, res)
@@ -49,7 +49,7 @@ func Psy_fetchOne(c *gin.Context) {
 	drug := c.Param("name")
 	client, err := cfg.ConnectToDB()
 	if err != nil {
-		c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 	col := client.Database("substances").Collection("psychwiki")
 	//opts := options.Find().SetProjection(bson.D{{"_id", 0}})
@@ -57,14 +57,14 @@ func Psy_fetchOne(c *gin.Context) {
 	defer client.Disconnect(context.Background())
 	switch err {
 	case mongo.ErrNoDocuments:
-		c.SecureJSON(http.StatusNotFound, gin.H{"Drug not found": err.Error()})
+		c.JSON(http.StatusNotFound, gin.H{"Drug not found": err.Error()})
 		return
 	case mongo.ErrClientDisconnected:
-		c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	default:
 		if err != nil {
-			c.SecureJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, result)
