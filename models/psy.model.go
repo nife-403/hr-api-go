@@ -1,85 +1,492 @@
 package models
 
+import _ "go.mongodb.org/mongo-driver/v2/bson"
+
 type PsyDoc struct {
-	Name               string   `bson:"name"`
-	Summary            string   `bson:"summary"`
-	AddictionPotential string   `bson:"addictionPotential"`
-	Toxicity           []string `bson:"toxicity"`
-	CrossTolerances    []string `bson:"crossTolerances"`
-	CommonNames        []string `bson:"commonNames"`
+	Name               string   `bson:"name,omitempty"`
+	Summary            string   `bson:"summary,omitempty"`
+	AddictionPotential string   `bson:"addictionPotential,omitempty"`
+	Toxicity           []string `bson:"toxicity,omitempty"`
+	CrossTolerances    []string `bson:"crossTolerances,omitempty"`
+	CommonNames        []string `bson:"commonNames,omitempty"`
 	Class              struct {
-		Chemical     []string `bson:"chemical"`
-		Psychoactive []string `bson:"psychoactive"`
-	} `bson:"class"`
+		Chemical     []string `bson:"chemical,omitempty"`
+		Psychoactive []string `bson:"psychoactive,omitempty"`
+	} `bson:"class,omitempty"`
 	Tolerance struct {
-		Full string `bson:"full"`
-		Half string `bson:"half"`
-		Zero string `bson:"zero"`
-	} `bson:"tolerance"`
+		Full string `bson:"full,omitempty"`
+		Half string `bson:"half,omitempty"`
+		Zero string `bson:"zero,omitempty"`
+	} `bson:"tolerance,omitempty"`
 	UncertainInteractions []struct {
-		Name string `bson:"name"`
-	} `bson:"uncertainInteractions"`
+		Name string `bson:"name,omitempty"`
+	} `bson:"uncertainInteractions,omitempty"`
 	UnsafeInteractions []struct {
-		Name string `bson:"name"`
-	} `bson:"unsafeInteractions"`
+		Name string `bson:"name,omitempty"`
+	} `bson:"unsafeInteractions,omitempty"`
 	DangerousInteractions []struct {
-		Name string `bson:"name"`
-	} `bson:"dangerousInteractions"`
+		Name string `bson:"name,omitempty"`
+	} `bson:"dangerousInteractions,omitempty"`
 	Roa struct {
-		Oral struct {
-			Name string `bson:"name"`
+		Oral *struct {
+			Name string `bson:"name,omitempty"`
 			Dose struct {
-				Units     string  `bson:"units"`
-				Threshold float64 `bson:"threshold"`
-				Heavy     float64 `bson:"heavy"`
-				Common    struct {
-					Min float64 `bson:"min"`
-					Max float64 `bson:"max"`
-				} `bson:"common"`
-				Light struct {
-					Min float64 `bson:"min"`
-					Max float64 `bson:"max"`
-				} `bson:"light"`
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
 				Strong struct {
-					Min float64 `bson:"min"`
-					Max float64 `bson:"max"`
-				} `bson:"strong"`
-			} `bson:"dose"`
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
 			Duration struct {
-				Afterglow any `bson:"afterglow"`
-				Comeup    any `bson:"comeup"`
-				Duration  any `bson:"duration"`
-				Offset    struct {
-					Min   float64 `bson:"min"`
-					Max   float64 `bson:"max"`
-					Units string  `bson:"units"`
-				} `bson:"offset"`
 				Onset struct {
-					Min   float64 `bson:"min"`
-					Max   float64 `bson:"max"`
-					Units string  `bson:"units"`
-				} `bson:"onset"`
-				Peak struct {
-					Min   float64 `bson:"min"`
-					Max   float64 `bson:"max"`
-					Units string  `bson:"units"`
-				} `bson:"peak"`
-				Total struct {
-					Min   float64 `bson:"min"`
-					Max   float64 `bson:"max"`
-					Units string  `bson:"units"`
-				} `bson:"total"`
-			} `bson:"duration"`
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
 			Bioavailability any `bson:"bioavailability,omitempty"`
 		} `bson:"oral,omitempty"`
-		Sublingual    any `bson:"sublingual,omitempty"`
-		Buccal        any `bson:"buccal,omitempty"`
-		Insufflated   any `bson:"insufflated,omitempty"`
-		Rectal        any `bson:"rectal,omitempty"`
-		Transdermal   any `bson:"transdermal,omitempty"`
-		Subcutaneous  any `bson:"subcutaneous,omitempty"`
-		Intramuscular any `bson:"intramuscular,omitempty"`
-		Intravenous   any `bson:"intravenous,omitempty"`
-		Smoked        any `bson:"smoked,omitempty"`
-	} `bson:"roa"`
+		Sublingual *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"sublingual,omitempty"`
+		Buccal *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"buccal,omitempty"`
+		Insufflated *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"insufflated,omitempty"`
+		Rectal *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"rectal,omitempty"`
+		Transdermal *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"transdermal,omitempty"`
+		Subcutaneuos *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"subcutaneuos,omitempty"`
+		Intramuscular *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"intramuscular,omitempty"`
+		Intravenous *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"intravenous,omitempty"`
+		Smoked *struct {
+			Name string `bson:"name,omitempty"`
+			Dose struct {
+				Units     string  `bson:"units,omitempty"`
+				Threshold float64 `bson:"threshold,omitempty"`
+				Light     struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"light,omitempty"`
+				Common struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"common,omitempty"`
+				Strong struct {
+					Min float64 `bson:"min,omitempty"`
+					Max float64 `bson:"max,omitempty"`
+				} `bson:"strong,omitempty"`
+				Heavy float64 `bson:"heavy,omitempty"`
+			} `bson:"dose,omitempty"`
+			Duration struct {
+				Onset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"onset,omitempty"`
+				Comeup any `bson:"comeup,omitempty"`
+				Peak   struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"peak,omitempty"`
+				Offset struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"offset,omitempty"`
+				Afterglow any `bson:"afterglow,omitempty"`
+				Total     struct {
+					Min   float64 `bson:"min,omitempty"`
+					Max   float64 `bson:"max,omitempty"`
+					Units string  `bson:"units,omitempty"`
+				} `bson:"total,omitempty"`
+				Duration any `bson:"duration,omitempty"`
+			} `bson:"duration,omitempty"`
+			Bioavailability any `bson:"bioavailability,omitempty"`
+		} `bson:"smoked,omitempty"`
+	} `bson:"roa,omitempty"`
 }

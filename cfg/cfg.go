@@ -12,8 +12,9 @@ func ConnectToDB() (*mongo.Client, error) {
 	//if dburi == "" {
 	//	return nil, fmt.Errorf("MONGODB_URI is not set")
 	//}
-	clientOpt := options.Client().ApplyURI("mongodb://localhost:27017/")
-	client, err := mongo.Connect(clientOpt)
+	bsonOpts := &options.BSONOptions{UseJSONStructTags: true, NilSliceAsEmpty: true, OmitEmpty: true}
+	clientOpts := options.Client().ApplyURI("mongodb://localhost:27017/").SetBSONOptions(bsonOpts)
+	client, err := mongo.Connect(clientOpts)
 	if err != nil {
 		return nil, err
 	}

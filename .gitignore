@@ -2,3 +2,4 @@
 ui-server.go
 frontend-*
 dist
+*.exe
