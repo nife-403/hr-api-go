@@ -34,5 +34,6 @@ func setRoutes() *gin.Engine {
 func main() {
 	gin.SetMode(gin.DebugMode)
 	r := setRoutes()
-	r.Run("localhost:8080")
+	go r.Run("localhost:8080")
+	select {}
 }
