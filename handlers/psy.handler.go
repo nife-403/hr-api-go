@@ -52,8 +52,8 @@ func Psy_fetchOne(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 	col := client.Database("substances").Collection("psychwiki")
-	//opts := options.Find().SetProjection(bson.D{{"_id", 0}})
-	err = col.FindOne(context.Background(), bson.D{{"name", drug}}).Decode(&result)
+	filter := bson.D{{"name", bson.D{{"$regex", "^" + drug + "$"}, {"$options", "i"}}}}
+	err = col.FindOne(context.Background(), filter).Decode(&result)
 	defer client.Disconnect(context.Background())
 	switch err {
 	case mongo.ErrNoDocuments:

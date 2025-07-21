@@ -3,3 +3,5 @@ ui-server.go
 frontend-*
 dist
 *.exe
+*.exe~
+*.log
